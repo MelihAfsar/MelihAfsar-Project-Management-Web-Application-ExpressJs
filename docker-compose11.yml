@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+  postgres:
+    image: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ijhtA2ZUybjZTdY6XE6hdFNvsdz4Z56D
+      POSTGRES_DB: vtysDataBaseProject
+    volumes:
+      - $PWD/restore.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    networks:
+      - vtys-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: melihafsar@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: XMc9ehuS2yDSNxgqhUZhddxd8ETcL9gZ
+    restart: unless-stopped
+    networks:
+      - vtys-network
+
+networks:
+  vtys-network:
+    external: false

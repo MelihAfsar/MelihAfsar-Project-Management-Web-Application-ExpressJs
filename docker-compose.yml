@@ -1,0 +1,62 @@
+version: '2.1'
+services:
+  postgres:
+    image: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ijhtA2ZUybjZTdY6XE6hdFNvsdz4Z56D
+      POSTGRES_DB: vtysDataBaseProject
+    volumes:
+     - $PWD/restore1.sql:/docker-entrypoint-initdb.d/init.sql
+     #- pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - vtys-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5555:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: melihafsar@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: XMc9ehuS2yDSNxgqhUZhddxd8ETcL9gZ
+    restart: unless-stopped
+    networks:
+      - vtys-network
+
+  vtys-backend:
+    container_name: vtys-backend
+    #build: .
+    image: melihafsar/management-web-backend:v1.4
+    ports:
+      - "3000:3000"
+    environment:
+      #- DB_CONNECTION_STRING:postgresql://postgres:ijhtA2ZUybjZTdY6XE6hdFNvsdz4Z56D@postgres:5432/vtysDataBaseProject
+      - PGHOST=postgres
+      - PGUSER=postgres
+      - PGDATABASE=vtysDataBaseProject
+      - PGPASSWORD=ijhtA2ZUybjZTdY6XE6hdFNvsdz4Z56D
+      - PGPORT=5432
+      - PORT=3000
+    restart: unless-stopped
+    networks:
+      - vtys-network
+    depends_on:
+      - postgres
+
+  vtys-frontend:
+    container_name: vtys-frontend
+    image: melihafsar/management-web-frontend:latest
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    depends_on:
+      - vtys-backend
+    networks:
+      - vtys-network
+
+networks:
+  vtys-network:
