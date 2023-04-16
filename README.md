@@ -18,7 +18,7 @@
 * Backend: Node.js, Express.js
 * Database: PostgreSQL
 
-Bu repository'de sadece frontend kısmı bulunmaktadır. Backend repository'si için [buraya](https://github.com/MelihAfsar/Project-Management-Web-Application-ExpressJs "buraya") tıklayabilirsiniz.
+Bu repository'de sadece backend kısmı bulunmaktadır. Frontend repository'si için [buraya](https://github.com/MelihAfsar/Project-Management-Web-Application-React) tıklayabilirsiniz.
 
 ## Proje Gereksinimleri
 * Node.js
