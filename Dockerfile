@@ -7,6 +7,7 @@ WORKDIR /app
 # Install app dependencies
 COPY package*.json /app
 RUN npm ci
+RUN npm ci swagger-ui-express
 
 # Bundle app source
 COPY . /app

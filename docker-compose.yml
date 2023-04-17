@@ -30,7 +30,7 @@ services:
   vtys-backend:
     container_name: vtys-backend
     #build: .
-    image: melihafsar/management-web-backend:v1.4
+    image: melihafsar/management-web-backend:v2.0
     ports:
       - "3000:3000"
     environment:

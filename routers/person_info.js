@@ -4,29 +4,29 @@ import postgresClient from "../config/database.js";
 const router = express.Router();
 
 //create user
-//tbl_person_details tablosuna veri eklemek için kullanılır
-router.post("/", async (request, response) => {
-  try {
-    const text =
-      "INSERT INTO tbl_person_details (person_id,name,surname,degree,phone,room_no,address_id) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *";
-    const values = [
-      request.body.person_id,
-      request.body.name,
-      request.body.surname,
-      request.body.degree,
-      request.body.phone,
-      request.body.room_no,
-      request.body.address_id,
-    ];
+//tbl_person_details tablosuna veri eklemek için kullanılacaktir.
 
-    const result = await postgresClient.query(text, values);
-    const { rows } = result;
-    return response.status(201).json({ message: rows[0] });
-  } catch (error) {
-    console.log("found error  : ", error);
-    return response.status(400).json({ message: error.message });
-  }
-});
+// router.post("/", async (request, response) => {
+//   try {
+//     const text =
+//       "INSERT INTO tbl_person_details (person_id,name,surname,degree,phone,room_no,address_id) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *";
+//     const values = [
+//       request.body.person_id,
+//       request.body.name,
+//       request.body.surname,
+//       request.body.degree,
+//       request.body.phone,
+//       request.body.room_no,
+//       request.body.address_id,
+//     ];
+//     const result = await postgresClient.query(text, values);
+//     const { rows } = result;
+//     return response.status(201).json({ message: rows[0] });
+//   } catch (error) {
+//     console.log("found error  : ", error);
+//     return response.status(400).json({ message: error.message });
+//   }
+// });
 
 //Authentication
 //tbl_authorization tablosundan veri çekmek için kullanılır

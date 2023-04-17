@@ -138,6 +138,7 @@ router.delete("/delete/:workId", async (request, response) => {
     const { workId } = request.params;
     const text = "DELETE FROM tbl_works WHERE work_id = $1 RETURNING * ";
     //const values = [workId];
+
     const values = [parseInt(workId.slice(1))];
     const { rows } = await postgresClient.query(text, values);
 

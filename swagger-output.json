@@ -1,0 +1,653 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Project Management Web Application",
+    "description": "- Sometimes there are communication problems regarding the tasks to be performed within the faculty among part-time students, academics, and technicians working at Marmara University. This situation leads to a waste of time.\n\n- The project content involves creating a web portal to be used specifically by the Computer Department of the Faculty of Technology, through which university academics can assign tasks to part-time working students via a panel, and one of the available students can accept the task and keep track of it.\n- In task tracking, the system has the ability to provide information on which task was assigned to which student, the current status of the task, and the deadline for completion. Finally, the academic supervisor has the right to review the completed task and request revisions if necessary.\n- All the academic supervisors and students registered in the database can view these tasks.\n\nYou can access the project's GitHub repository addresses:\n- [Backend](https://github.com/MelihAfsar/Project-Management-Web-Application-React)\n- [Frontend](https://github.com/MelihAfsar/Project-Management-Web-Application-ExpressJs)",
+    "contact": {
+      "name": "Melih Afşar",
+      "email": "melih_afsar@hotmail.com.tr"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://www.mit.edu/~amini/LICENSE.md"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "address",
+      "description": "Information on the weekly work program hours of university personnel is available."
+    },
+    {
+      "name": "classrooms",
+      "description": "Information on the current classrooms in the university's computer engineering department is available."
+    },
+    {
+      "name": "contacts",
+      "description": "Contact information for university personnel is available."
+    },
+    {
+      "name": "dashboard",
+      "description": "The project includes adding new projects, changing the project status information, viewing projects, and deleting existing projects."
+    },
+    {
+      "name": "notes",
+      "description": "Personnel can add, delete, and update personal notes along with their IDs."
+    },
+    {
+      "name": "personnels",
+      "description": "It is possible to perform operations related to personnel information."
+    },
+    {
+      "name": "works",
+      "description": "It includes information on the weekly working hours of personnel."
+    }
+  ],
+
+  "paths": {
+    "/address_info": {
+      "get": {
+        "tags" :[
+          "address"
+        ],
+        "description": "It retrieves all the addresses from the table of personnel addresses.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "address not found"
+          }
+        }
+      }
+    },
+    "/classroom": {
+      "get": {
+        "tags" :[
+          "classrooms"
+        ],
+        "description": "It returns the information about the current classrooms in the computer engineering department.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "classrooms not found"
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "tags" :[
+          "contacts"
+        ],
+        "description": "It retrieves all the information from the communication table of personnel.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "tags" :[
+          "dashboard"
+        ],
+        "description": "It enables the retrieval of information on all tasks on the dashboard along with their status.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "dashboard not found"
+          }
+        }
+      }
+    },
+    "/dashboard/work": {
+      "post": {
+        "tags" :[
+          "dashboard"
+        ],
+        "description": "New job definitions can be added to the dashboard screen.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "work_name": {
+                  "example": "Staj I Belge"
+                },
+                "details": {
+                  "example": "Staj Belgelerinin incelenip notlarının verilmesi ve sisteme kaydının yapılması gerekmektedir."
+                },
+                "work_creator": {
+                  "example": 100023
+                },
+                "estimated_time": {
+                  "example": "3"
+                },
+                "clasroom_id": {
+                  "example": 1000
+                },
+                "create_time": {
+                  "example": "9.12.2022 23:11"
+                },
+                "priority": {
+                  "example": "3"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/dashboard/update/{workId}": {
+      "put": {
+        "tags" :[
+          "dashboard"
+        ],
+        "description": "It allows updating the information of the task with the given workId parameter.",
+        "parameters": [
+          {
+            "name": "workId",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "work_name": {
+                  "example": "Klima Bakım"
+                },
+                "details": {
+                  "example": "Bölüm Laboratuvarlarına genel bakım yaptırılmalıdır."
+                },
+                "work_creator": {
+                  "example": 100013
+                },
+                "work_owner": {
+                  "example": 0
+                },
+                "estimated_time": {
+                  "example": "1"
+                },
+                "work_status": {
+                  "example": "0"
+                },
+                "clasroom_id": {
+                  "example": "1000"
+                },
+                "create_time": {
+                  "example": ""
+                },
+                "finish_time": {
+                  "example": ""
+                },
+                "priority": {
+                  "example": 2
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/dashboard/setWorkOwner": {
+      "put": {
+        "tags" :[
+          "dashboard"
+        ],
+        "description": "When someone takes a newly created task that no one has claimed yet, it updates the personID information of that person in the database.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "work_owner": {
+                  "example": 100012
+                },
+                "work_status": {
+                  "example": 1
+                },
+                "work_id": {
+                  "example": 1024
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/dashboard/setWorkFinishTime": {
+      "put": {
+        "tags" :[
+          "dashboard"
+        ],
+        "description": "The end date and time of the task that is marked as 'finished' will be updated in the database.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "finish_time": {
+                  "example": "17.4.2023 17:21"
+                },
+                "work_id": {
+                  "example": "1023"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/dashboard/delete/{workId}": {
+      "delete": {
+        "tags" :[
+          "dashboard"
+        ],
+        "description": "The job with the workId parameter sent is deleted from the database.",
+        "parameters": [
+          {
+            "name": "workId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/note_info": {
+      "get": {
+        "tags" :[
+          "notes"
+        ],
+        "description": "All notes belonging to all personnel are retrieved.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "notes not found"
+          }
+        }
+      }
+    },
+    "/note_info/person-notes/{personId}": {
+      "get": {
+        "tags" :[
+          "notes"
+        ],
+        "description": "The written notes belonging to the personnel with the personId parameter are retrieved.",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/note_info/note": {
+      "post": {
+        "tags" :[
+          "notes"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "Test Notudur."
+                },
+                "description": {
+                  "example": "Test kullanıcısına test notu eklenmiştir."
+                },
+                "person_id": {
+                  "example": "100000"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/note_info/update-note/{noteId}": {
+      "put": {
+        "tags" :[
+          "notes"
+        ],
+        "description": "The description of the note sent with the noteId parameter is updated in the database.",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "Ders Programı"
+                },
+                "description": {
+                  "example": "2. sınıfların ders programı hazırlanacak."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/note_info/delete-note/{noteId}": {
+      "delete": {
+        "tags" :[
+          "notes"
+        ],
+        "description": "The note with the given noteId parameter is deleted from the database.",
+        "parameters": [
+          {
+            "name": "noteId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/person_info": {
+      "get": {
+        "tags" :[
+          "personnels"
+        ],
+        "description": "It retrieves all personnel information in the department.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "personnels not found"
+          }
+        }
+      }
+    },
+    "/person_info/personID/{personId}": {
+      "get": {
+        "tags" :[
+          "personnels"
+        ],
+        "description": "The function retrieves the information of the personnel whose personID parameter is sent.",
+        "parameters": [
+          {
+            "name": "personId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/person_info/email/{email}": {
+      "get": {
+        "tags" :[
+          "personnels"
+        ],
+        "description": "By searching with the email information of a personnel, the personnelID information of the relevant personnel is returned. NOTE: 'The email address must not have a one-character space at the beginning. The solution to this problem could not be found.'",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/person_info/login": {
+      "post": {
+        "tags" :[
+          "personnels"
+        ],
+        "description": "If the email and password of the logged-in user are found in the database, a successful login message is returned.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "melihafsar@marun.edu.tr"
+                },
+                "password": {
+                  "example": "123456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/person_info/update/{userId}": {
+      "put": {
+        "tags" :[
+          "personnels"
+        ],
+        "description": "The personnel information is updated in the database with the personnel ID parameter.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "example": "02244708078"
+                },
+                "room_no": {
+                  "example": "T6-102"
+                },
+                "degree": {
+                  "example": "Frontend Developer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/workingDay": {
+      "get": {
+        "tags" :[
+          "works"
+        ],
+        "description": "It will retrieve the working hours information of all personnel.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "works not found"
+          }
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,9 @@ import contacts from "./routers/contacts.js";
 import dashboard from "./routers/dashboard.js";
 import cors from "cors";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from './swagger-output.json' assert { type: "json" };
+
 //middleware
 const app = express();
 
@@ -30,9 +33,12 @@ app.use("/contacts", contacts);
 app.use("/dashboard", dashboard);
 //app.use("/users", userRouter);
 
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // .env dosyasında port numarasını belirledik.
 //const PORT = process.env.PORT || 3000;
 const PORT = 3000;
+// const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);

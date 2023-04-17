@@ -3,27 +3,26 @@ import postgresClient from "../config/database.js";
 
 const router = express.Router();
 
-//create address ;
-//tbl_workdate tablosuna veri gün , başlangıç ve bitiş saatlerini eklemek için kullanılır
-router.post("/workingDay", async (request, response) => {
-  try {
-    const text =
-      "INSERT INTO tbl_workdate (day,start_time,end_time) VALUES ($1,$2,$3) RETURNING *";
+//tbl_workdate tablosuna veri gün , başlangıç ve bitiş saatlerini eklemek için kullanılacaktir.
+// router.post("/workingDay", async (request, response) => {
+//   try {
+//     const text =
+//       "INSERT INTO tbl_workdate (day,start_time,end_time) VALUES ($1,$2,$3) RETURNING *";
 
-    const values = [
-      request.body.day,
-      request.body.startTime,
-      request.body.endTime,
-    ];
+//     const values = [
+//       request.body.day,
+//       request.body.startTime,
+//       request.body.endTime,
+//     ];
 
-    const result = await postgresClient.query(text, values);
-    const { rows } = result;
-    return response.status(201).json({ message: rows[0] });
-  } catch (error) {
-    console.log("found error  : ", error);
-    return response.status(400).json({ message: error.message });
-  }
-});
+//     const result = await postgresClient.query(text, values);
+//     const { rows } = result;
+//     return response.status(201).json({ message: rows[0] });
+//   } catch (error) {
+//     console.log("found error  : ", error);
+//     return response.status(400).json({ message: error.message });
+//   }
+// });
 
 function groupByKey(array, key) {
   return array.reduce((hash, obj) => {

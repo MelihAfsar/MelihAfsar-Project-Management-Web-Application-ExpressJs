@@ -3,28 +3,26 @@ import postgresClient from "../config/database.js";
 
 const router = express.Router();
 
-//create classroom ;
+//tbl_classroom tablosuna veri eklemek için kullanılmak üzere eklenmiştir.
+// router.post("/classroom", async (request, response) => {
+//   try {
+//     const text =
+//       "INSERT INTO tbl_classroom (classroom_id,class_code,capacity) VALUES ($1,$2,$3) RETURNING *";
 
-//tbl_classroom tablosuna veri eklemek için kullanılır.
-router.post("/classroom", async (request, response) => {
-  try {
-    const text =
-      "INSERT INTO tbl_classroom (classroom_id,class_code,capacity) VALUES ($1,$2,$3) RETURNING *";
+//     const values = [
+//       request.body.class_name,
+//       request.body.class_amount,
+//       request.body.class_capacity,
+//     ];
 
-    const values = [
-      request.body.class_name,
-      request.body.class_amount,
-      request.body.class_capacity,
-    ];
-
-    const result = await postgresClient.query(text, values);
-    const { rows } = result;
-    return response.status(201).json({ message: rows[0] });
-  } catch (error) {
-    console.log("found error  : ", error);
-    return response.status(400).json({ message: error.message });
-  }
-});
+//     const result = await postgresClient.query(text, values);
+//     const { rows } = result;
+//     return response.status(201).json({ message: rows[0] });
+//   } catch (error) {
+//     console.log("found error  : ", error);
+//     return response.status(400).json({ message: error.message });
+//   }
+// });
 
 //tbl_classroom tablosundaki tüm verileri getirir.
 router.get("/", async (request, response) => {
