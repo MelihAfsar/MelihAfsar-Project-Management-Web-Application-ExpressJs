@@ -28,7 +28,9 @@ Bu repository'de sadece backend kısmı bulunmaktadır. Frontend repository'si i
 <hr>
 
 ## Kurulum
-Yukarıda belirtilen backend repository'si **docker-compose** dosyasını çalıştırarak programı inceleyebilirsiniz. Eğer veritabanı bağlantısı kullanmak istemiyorsanız. _Aşağıdaki adımları takip edebilirsiniz._
+Bu backend repository'si postgresql veritabanı kullanmaktadır. Projeyi doğrudan run etmek isterseniz öncelikle postgresql veritabanını çalıştırmalı ve restore1.sql backup dosyasını uygun şekilde veritabanında restore işlemini gerçekleştirmelisiniz. 
+
+PostgreSQL veritabanını uygun şekilde oluşturduysanız, _aşağıdaki adımları takip edebilirsiniz._
 
 * Projeyi klonlayın.
 
@@ -47,33 +49,44 @@ npm install
 ```bash
 npm start
 ```
-<hr>
+<br>
+
+Ya da dilerseniz **docker-compose** dosyasını çalıştırarak programı inceleyebilirsiniz. _Bunun için aşağıdaki adımları takip ediniz._
 
 ## Proje Docker Image Linkleri
 * [Frontend](https://hub.docker.com/r/melihafsar/management-web-frontend "Frontend")
 * [Backend](https://hub.docker.com/r/melihafsar/management-web-backend "Backend")
 
-## Dockerfile ile projeyi build etmek
+## Dockercompose ile Projeyi Çalıştırın
 
 ```sh 
-#Projeyi build edin.
+# Dilerseniz projeyi build edin.
 docker build -t management-web-backend .
 ```
 
 ```sh
-#Projeyi çalıştırın.
+#Ya da dockerhub üzerindeki en güncel image'lar ile projeyi çalıştırın.
 docker compose up -d
 ```
-Uygulamayı çalıştırdıktan sonra `http://localhost:3001` adresine giderek web arayüzünü kullanabilirsiniz.
 
->Backend uygulaması default olarak 3000 portunda çalışmaktadır. Portu değiştirmek için `Dockerfile` ve `docker-compose`dosyasını düzenleyebilirsiniz.
+> Uyarı veya hata mesajı almanız halinde: portlarınızın uygun olup olmadığını kontrol ediniz. Aşağıdaki mesajı dikkatle inceleyiniz.
 
+> PostgreSQL veritabanı 5432 portu ile yayınlanmakta, backend uygulaması 5432 portu ile veritabanı iletişimi kurmaktadır. Aynı zamanda backend 3000 ile dışarıya açılmaktdadır. Frontend uygulamsı, backend ile haberleşmek için 3000 portunu kullanmaktadır. Aynı zamanda frontend'e 3001 portu ile ulaşılabilmektedir. 
+
+<hr>
+
+Uygulama ayaklandırıldığında `http://localhost:3001` adresine giderek web arayüzünü kullanabilir, <br> 
+melihafsar@marun.edu.tr kullanıcısı ve 123456 şifresi ile giriş yapabilir ve deneyimleyebilirsiniz. <br>
+
+
+`http://localhost:3000` adresine giderek backend'in çalıştığını kontrol edebilir, http://localhost:3000/docs adresine giderek swagger arayüzünü kullanabilirsiniz. <br>
+<br>
+
+![swagger ui](https://user-images.githubusercontent.com/77414773/232722360-2a1dd7c5-d4c9-43ab-9c08-5783e4c3f3af.png)
 
 <br>
 
-
 ## Proje Klasör Yapısı
 
-<img width="502" alt="Screenshot 2023-04-15 at 13 57 44" src="https://user-images.githubusercontent.com/77414773/232209871-62c081a4-dfdb-4c94-8909-30e0411116bf.png">
 
-
+<img width="426" alt="project folder" src="https://user-images.githubusercontent.com/77414773/232722934-08d97e25-19a9-4315-bd77-e4f96e79ac9c.png">

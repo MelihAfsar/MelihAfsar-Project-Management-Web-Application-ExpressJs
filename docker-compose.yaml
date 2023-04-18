@@ -30,7 +30,7 @@ services:
   vtys-backend:
     container_name: vtys-backend
     #build: .
-    image: melihafsar/management-web-backend:v2.0
+    image: melihafsar/management-web-backend:v2.1
     ports:
       - "3000:3000"
     environment:
@@ -49,7 +49,7 @@ services:
 
   vtys-frontend:
     container_name: vtys-frontend
-    image: melihafsar/management-web-frontend:latest
+    image: melihafsar/management-web-frontend:v2.1
     ports:
       - "3001:3000"
     restart: unless-stopped
